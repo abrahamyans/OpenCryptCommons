@@ -4,7 +4,7 @@ Thank you for your interest in OpenCryptCommons.
 
 ## Current status
 
-This repository is currently a pre-award placeholder. Its current purpose is to document project intent, roadmap direction, and preparation for transparent open development.
+This repository's current purpose is to document project intent, roadmap direction, and preparation for transparent open development.
 
 Implementation code is not yet available.
 
