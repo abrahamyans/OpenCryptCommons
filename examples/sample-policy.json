@@ -1,0 +1,9 @@
+{
+  "operation": "rotate-issuer-key",
+  "threshold": 2,
+  "participants": [
+    "alice",
+    "bob",
+    "carol"
+  ]
+}
