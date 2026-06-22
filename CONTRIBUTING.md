@@ -4,9 +4,11 @@ Thank you for your interest in OpenCryptCommons.
 
 ## Current status
 
-This repository's current purpose is to document project intent, roadmap direction, and preparation for transparent open development.
+## Current status
 
-Implementation code is not yet available.
+OpenCryptCommons is in its early implementation phase. The repository currently contains the Rust workspace foundation, core data structures, policy validation, command-line tooling, tests, and initial design documentation.
+
+Cryptographic provider implementations are not yet production-ready. Contributions should clearly distinguish between non-cryptographic architecture work and security-sensitive cryptographic implementation.
 
 ## Helpful contributions at this stage
 
@@ -33,7 +35,21 @@ Please check whether your suggestion is already reflected in the README or docum
 
 ## Code contributions
 
-Code contributions will be invited once the initial implementation roadmap is published.
+## Code contributions
+
+Code contributions are welcome through pull requests.
+
+Before submitting code:
+
+1. open or reference a GitHub Issue;
+2. explain the purpose and security impact of the change;
+3. add or update tests;
+4. run `cargo fmt --all`;
+5. run `cargo clippy --workspace --all-targets --all-features`;
+6. run `cargo test --workspace --all-features`;
+7. do not include passwords, tokens, private keys, or real personal credentials.
+
+Changes involving cryptographic algorithms, key handling, wire formats, or verification rules require additional technical review.
 
 ## Communication
 
