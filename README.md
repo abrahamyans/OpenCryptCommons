@@ -1,102 +1,111 @@
 # OpenCryptCommons
 
-**Post-Quantum Selective Disclosure and Threshold Trust Toolkit for Internet Services**
+**Post-Quantum-Ready Selective Disclosure and Threshold Trust Toolkit for Internet Services**
 
-> Project status: pre-award placeholder repository for a planned open-source cryptography project.
+> **Current status:** Phase 1 engineering foundation. This repository does not yet provide production-ready cryptographic credentials.
 
-OpenCryptCommons is a planned open-source project focused on practical cryptographic building blocks for the open internet.
+OpenCryptCommons is an open-source project intended to provide reusable, developer-friendly building blocks for:
 
-The project is being prepared as a compact, reusable toolkit for:
+- selective-disclosure credentials;
+- threshold-based authorization and shared control;
+- crypto-agile migration toward post-quantum signatures;
+- integration into self-hosted, federated, and public-interest internet services.
 
-* **post-quantum-ready trust migration**
-* **selective-disclosure credentials**
-* **threshold-based trust and shared key control**
-* **developer-friendly integration into internet services**
+## What this starter version contains
 
-## Status
+This first implementation package provides:
 
-This repository is currently a public placeholder for the project scope, technical roadmap, and future implementation work.
+- a Rust workspace;
+- a reusable `occ-core` crate;
+- credential data validation;
+- threshold-policy validation and approval counting;
+- a command-line application;
+- sample JSON files;
+- automated tests;
+- GitHub Actions continuous integration;
+- an initial threat model and standards plan.
 
-The initial development phase is expected to focus on a small, standards-aware, open-source trust layer rather than a monolithic platform.
+## What it deliberately does not contain yet
 
-## Planned first-phase goals
+The current version does **not**:
 
-### 1\. Core trust toolkit
+- issue or verify real SD-JWT credentials;
+- create FROST threshold signatures;
+- create ML-DSA post-quantum signatures;
+- manage production keys;
+- claim security certification or external audit.
 
-A memory-safe core library exposing a compact API for privacy-preserving credential handling and threshold authorization flows.
+These capabilities must be added using established standards and reviewed libraries. OpenCryptCommons must not invent new cryptographic primitives.
 
-### 2\. CLI and reference flow
+## Planned standards direction
 
-Command-line tooling and a minimal reference implementation to help developers test and evaluate the toolkit.
+The project currently targets:
 
-### 3\. Post-quantum-ready abstractions
+- W3C Verifiable Credentials Data Model 2.0;
+- RFC 9901 Selective Disclosure for JSON Web Tokens;
+- RFC 9591 FROST for classical threshold signatures;
+- NIST FIPS 204 ML-DSA for post-quantum digital signatures.
 
-A practical integration layer for crypto-agile migration toward post-quantum-capable trust components.
+FROST and ML-DSA are separate mechanisms. FROST is not post-quantum. A future OpenCryptCommons design may use threshold authorization to control a post-quantum key operation, but it must not describe ordinary FROST signatures as post-quantum secure.
 
-### 4\. One real integration example
-
-A demonstrator showing how the toolkit can be used in a real internet-facing service or protocol.
-
-## Why this project
-
-Internet services increasingly need stronger trust infrastructure than passwords, single-admin keys, or opaque centralized identity systems.
-
-OpenCryptCommons is intended to help bridge the gap between:
-
-* low-level cryptographic standards and libraries
-* real-world internet services
-* privacy-preserving and commons-oriented infrastructure
-
-The goal is to create a small, reusable building block for digital commons, self-hosted systems, federated services, and public-interest internet software.
-
-## Design principles
-
-* **open source first**
-* **standards-aware**
-* **memory-safe implementation choices**
-* **developer usability**
-* **modular architecture**
-* **privacy and trust by design**
-
-## Expected technology direction
-
-The implementation direction currently under exploration includes:
-
-* Rust core library
-* CLI tooling
-* interoperable data formats
-* selective-disclosure flows
-* threshold trust patterns
-* post-quantum-ready migration support
-
-Final technical decisions will be documented publicly as the roadmap is refined.
-
-## Repository roadmap
-
-Planned structure:
+## Repository structure
 
 ```text
-/docs      project notes, roadmap, threat model, design docs
-/crates    Rust crates and reusable libraries
-/examples  example integrations and demos
-/cli       command-line tools
-/tests     interoperability and regression tests
+.
+├── Cargo.toml
+├── cli/
+│   └── src/main.rs
+├── crates/
+│   └── occ-core/
+├── docs/
+├── examples/
+└── .github/workflows/ci.yml
 ```
 
-## License
+## Quick start
 
-This project is licensed under the Apache License 2.0.  
+Install Rust, open a terminal in the repository, and run:
 
+```bash
+cargo fmt --all
+cargo test --workspace
+cargo run -p occ-cli -- sample --output-dir examples/generated
+cargo run -p occ-cli -- credential-check --credential examples/sample-credential.json
+cargo run -p occ-cli -- policy-check \
+  --policy examples/sample-policy.json \
+  --approvals examples/sample-approvals.json
+```
 
-## Contact
+On Windows PowerShell, the final command can be written on one line:
 
-Project lead: Sergey Abrahamyan
+```powershell
+cargo run -p occ-cli -- policy-check --policy examples/sample-policy.json --approvals examples/sample-approvals.json
+```
 
-For early interest, collaboration, or review discussions, please use GitHub Issues.
+## Expected demonstration result
 
-## Note
+The sample policy requires two approvals from three authorized participants. The included approvals from Alice and Bob satisfy the policy, so the CLI should report:
 
-This placeholder repository exists to provide public project visibility, document intent, and prepare for open development.
+```json
+{
+  "authorized": true,
+  "valid_approvals": 2,
+  "required_approvals": 2,
+  "missing_approvals": 0,
+  "approved_participants": [
+    "alice",
+    "bob"
+  ],
+  "ignored_approvals": 1
+}
+```
 
-Implementation code, milestones, and documentation will be added as the project moves into active development.
+## Security notice
 
+This project is under active development. Do not use this starter version to protect real identities, money, production credentials, government systems, or sensitive infrastructure.
+
+Please report security concerns according to `SECURITY.md`. Do not publish suspected vulnerabilities in a public issue.
+
+## Licence
+
+Apache License 2.0.
