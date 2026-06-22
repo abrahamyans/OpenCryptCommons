@@ -2,12 +2,20 @@
 
 ## Project stage
 
-OpenCryptCommons is currently a pre-award placeholder repository. Production-ready code is not yet available.
+OpenCryptCommons is an early-stage research and development project. The current implementation is not production-ready and has not yet undergone an independent security review.
+
+Do not use it to protect real identity credentials, financial assets, government systems, production authentication services, or sensitive infrastructure.
 
 ## Reporting a vulnerability
 
-Please do not report security vulnerabilities through public GitHub issues.
+Please do not report suspected security vulnerabilities through public GitHub Issues.
 
-Until a dedicated security contact is established, please treat the repository as non-production and avoid sharing sensitive exploit details publicly.
+Use GitHub's private vulnerability reporting feature from the repository's Security page. Include:
 
-A private reporting channel and response policy will be added once active development begins.
+- the affected file or component;
+- the software version or commit;
+- steps required to reproduce the issue;
+- the possible security impact;
+- any suggested mitigation.
+
+Do not include real private keys, passwords, access tokens, or personal credentials.
